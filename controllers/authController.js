@@ -17,7 +17,9 @@ exports.register = async (req, res) => {
     const user = await User.create({ name, email, password: hashedPassword, role, isVerified: false });
 
     const emailToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-    const url = `http://localhost:${process.env.PORT || 5001}/api/auth/verify-email/${emailToken}`;
+    // const url = `http://localhost:${process.env.PORT || 5001}/api/auth/verify-email/${emailToken}`;
+    const url = `${process.env.FRONTEND_URL}/verify-email?token=${emailToken}`;
+
 
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
