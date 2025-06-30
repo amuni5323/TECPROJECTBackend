@@ -51,7 +51,15 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:3000',                        // local frontend dev
+    'https://tecproject-frontend-2obc.vercel.app'  // your deployed frontend
+  ],
+  credentials: true,
+}));
+
 app.use(express.json());
 app.use("/api/user-settings", userSettingsRoutes);
 // Logger
